@@ -62,7 +62,6 @@ public class TicTacToe {
 
             } else if (currentBoard[firstCoordinate][secondCoordinate] == "0"){
                 System.out.print("Oh no, a piece is already at this place! Try again...");
-
             }
 
             // add move to board
@@ -70,7 +69,9 @@ public class TicTacToe {
 
             // send success message and updated board
             System.out.println("Move accepted, here's the current board: ");
-            System.out.println(currentBoard);
+            Board updatedBoard = new Board();
+            updatedBoard.printUpdatedBoard();
+            System.out.println(updatedBoard);
             // increase playedGames
                 playedGames++;
         }

@@ -28,6 +28,16 @@ public class Board {
             }
     }
 
+    public void printUpdatedBoard(){
+        for (int i = 0; i < board.length; i++) {
+
+            for (int j = 0; (board[i] != null && j < board[i].length); j++)
+                System.out.print(board[i][j] + " ");
+
+            System.out.println();
+        }
+    }
+
 
 }
 
