@@ -19,11 +19,9 @@ public class TicTacToe {
         // game loop start
 
         Player currentPlayer = choosePlayer(playedGames);
-
         Scanner userInput = new Scanner(System.in);
 
         while (playedGames < 9) {
-
 
             //give game instructions
             //readUserInput
@@ -39,13 +37,19 @@ public class TicTacToe {
 
             // HAPPY PATH
             // give instructions
-            System.out.println(choosePlayer(playedGames).getName() + " enter a coordinate x,y to" +
-                    " " +
-                    "place your " + choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " +
-                    "up:");
+            System.out.println(choosePlayer(playedGames).getName() + " enter a coordinate x,y to" +  " " + "place your " + choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " + "up:");
 
             // read user input
             String readUserInput = userInput.nextLine();
+
+
+
+
+            if ( readUserInput.equals("q")) {
+                System.exit(0);
+                userInput.close();
+
+            }
 
             String[] coordinates = readUserInput.split(",");
             int firstCoordinate = Integer.parseInt(coordinates[0]);
@@ -54,12 +58,7 @@ public class TicTacToe {
             String[][] currentBoard = gameBoard.getBoard();
             // check if user coordinates on board are empty
 
-
-            if ( readUserInput.equals("q")) {
-                System.exit(0);
-                userInput.close();
-
-            } else if (currentBoard[firstCoordinate][secondCoordinate] == "." ){
+             if (currentBoard[firstCoordinate][secondCoordinate] == "." ){
                 //play the move
                 currentBoard[firstCoordinate][secondCoordinate] = currentPlayer.getPlayerPiece();
 
@@ -77,11 +76,10 @@ public class TicTacToe {
                 System.out.print("Oh no, a piece is already at this place! Try again...");
             }
 
-
-
             // increase playedGames
                 playedGames++;
         }
+
 
 
         // game loop end
