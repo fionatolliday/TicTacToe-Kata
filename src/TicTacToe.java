@@ -42,13 +42,9 @@ public class TicTacToe {
             // read user input
             String readUserInput = userInput.nextLine();
 
-
-
-
             if ( readUserInput.equals("q")) {
                 System.exit(0);
                 userInput.close();
-
             }
 
             String[] coordinates = readUserInput.split(",");
@@ -60,7 +56,8 @@ public class TicTacToe {
 
              if (currentBoard[firstCoordinate][secondCoordinate] == "." ){
                 //play the move
-                currentBoard[firstCoordinate][secondCoordinate] = currentPlayer.getPlayerPiece();
+                currentBoard[firstCoordinate][secondCoordinate] =
+                        choosePlayer(playedGames).getPlayerPiece();
 
                 System.out.println("Move accepted, here's the current board: ");
                 Board updatedBoard = new Board();
