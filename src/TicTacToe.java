@@ -23,6 +23,8 @@ public class TicTacToe {
         Scanner userInput = new Scanner(System.in);
 
         while (playedGames < 9) {
+
+
             //give game instructions
             //readUserInput
             //check for q - to exit game
@@ -37,7 +39,10 @@ public class TicTacToe {
 
             // HAPPY PATH
             // give instructions
-            System.out.println(currentPlayer.getName() + " enter a coordinate x,y to place your " + currentPlayer.getPlayerPiece() + " or enter 'q' to give up:");
+            System.out.println(choosePlayer(playedGames).getName() + " enter a coordinate x,y to" +
+                    " " +
+                    "place your " + choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " +
+                    "up:");
 
             // read user input
             String readUserInput = userInput.nextLine();
@@ -53,9 +58,17 @@ public class TicTacToe {
             if ( readUserInput.equals("q")) {
                 System.exit(0);
                 userInput.close();
+
             } else if (currentBoard[firstCoordinate][secondCoordinate] == "." ){
                 //play the move
                 currentBoard[firstCoordinate][secondCoordinate] = currentPlayer.getPlayerPiece();
+
+                System.out.println("Move accepted, here's the current board: ");
+                Board updatedBoard = new Board();
+
+                updatedBoard.printUpdatedBoard(currentBoard);
+//                updatedBoard.printUpdatedBoard();
+//                System.out.println(updatedBoard);
 
             } else if (currentBoard[firstCoordinate][secondCoordinate] == "X"){
                 System.out.print("Oh no, a piece is already at this place! Try again...");
@@ -64,14 +77,8 @@ public class TicTacToe {
                 System.out.print("Oh no, a piece is already at this place! Try again...");
             }
 
-            // add move to board
 
 
-            // send success message and updated board
-            System.out.println("Move accepted, here's the current board: ");
-            Board updatedBoard = new Board();
-            updatedBoard.printUpdatedBoard();
-            System.out.println(updatedBoard);
             // increase playedGames
                 playedGames++;
         }
