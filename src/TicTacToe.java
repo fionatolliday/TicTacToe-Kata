@@ -2,9 +2,6 @@ import java.util.Scanner;
 
 
 public class TicTacToe {
-
-
-
     public static void main (String[] args){
 
 //    Welcome message
@@ -13,15 +10,15 @@ public class TicTacToe {
 //    Display current board
         System.out.println("Here's the current board:");
         Board gameBoard = new Board();
-        gameBoard.printInitialBoard();
+        gameBoard.printBoard();
+
         int playedGames = 0;
 
         // game loop start
-
         Player currentPlayer = choosePlayer(playedGames);
         Scanner userInput = new Scanner(System.in);
 
-        while (playedGames < 9) {
+        while (playedGames < 10) {
 
             //give game instructions
             //readUserInput
@@ -34,8 +31,6 @@ public class TicTacToe {
             //increase played games
 
 
-
-            // HAPPY PATH
             // give instructions
             System.out.println(choosePlayer(playedGames).getName() + " enter a coordinate x,y to" +  " " + "place your " + choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " + "up:");
 
@@ -51,31 +46,59 @@ public class TicTacToe {
             int firstCoordinate = Integer.parseInt(coordinates[0]);
             int secondCoordinate = Integer.parseInt(coordinates[1]);
 
-            String[][] currentBoard = gameBoard.getBoard();
+            String[][] currentArray = gameBoard.getArray();
             // check if user coordinates on board are empty
 
-             if (currentBoard[firstCoordinate][secondCoordinate] == "." ){
-                //play the move
-                currentBoard[firstCoordinate][secondCoordinate] =
-                        choosePlayer(playedGames).getPlayerPiece();
+             if (currentArray[firstCoordinate][secondCoordinate] == "." ) {
+                 //play the move
+                 currentArray[firstCoordinate][secondCoordinate] =
+                         choosePlayer(playedGames).getPlayerPiece();
 
-                System.out.println("Move accepted, here's the current board: ");
-                Board updatedBoard = new Board();
+                 System.out.println("Move accepted, here's the current board: ");
 
-                updatedBoard.printUpdatedBoard(currentBoard);
-//                updatedBoard.printUpdatedBoard();
-//                System.out.println(updatedBoard);
+                 gameBoard.printBoard();
 
-            } else if (currentBoard[firstCoordinate][secondCoordinate] == "X"){
+                 String currentPlayerToken = choosePlayer(playedGames).getPlayerPiece();
+
+                 if (winCheck(currentArray)){
+                     System.out.println("Move accepted, well done you've won the game! ");
+                 }
+
+                 // increase playedGames
+                 playedGames++;
+
+
+//                 here is checking lines to see if there is a winning game
+//                    String currentPlayerToken = choosePlayer(playedGames).getPlayerPiece();
+//                    if ((currentArray[0][0].equals(currentPlayerToken)) && (currentArray[0][1].equals(currentPlayerToken)) && (currentArray[0][2].equals(currentPlayerToken))) {
+//                     System.out.println("Move accepted, well done you've won the game!");
+//                        System.exit(0);
+//                 } else if ((currentArray[1][0].equals(currentPlayerToken)) && (currentArray[1][1].equals(currentPlayerToken)) && (currentArray[1][2].equals(currentPlayerToken))) {
+//                        System.out.println("Move accepted, well done you've won the game!");
+//                        System.exit(0);
+//                    } else if ((currentArray[2][0].equals(currentPlayerToken)) && (currentArray[2][1].equals(currentPlayerToken)) && (currentArray[2][2].equals(currentPlayerToken))) {
+//                     System.out.println("Move accepted, well done you've won the game!");
+//                        System.exit(0);
+//                 }
+
+
+
+//                    this is if there is not a vacant spot for the piece
+            } else if (currentArray[firstCoordinate][secondCoordinate] == "X"){
                 System.out.print("Oh no, a piece is already at this place! Try again...");
 
-            } else if (currentBoard[firstCoordinate][secondCoordinate] == "0"){
+
+            } else if (currentArray[firstCoordinate][secondCoordinate] == "0"){
                 System.out.print("Oh no, a piece is already at this place! Try again...");
             }
 
-            // increase playedGames
-                playedGames++;
+
         }
+
+//        check for a win
+
+
+
 
 
 
@@ -84,6 +107,61 @@ public class TicTacToe {
     }
 
 
+
+    public static Boolean winCheck(String[][] currentBoardArray) {
+        for (int indexOuter = 0; indexOuter < currentBoardArray.length; indexOuter++){
+                 if (isWon(currentBoardArray[indexOuter])) {
+                     return true;
+                 }
+
+            } return false;
+        }
+
+
+
+//        //check row 0
+//        String[] row0 = {currentBoardArray[0][0], currentBoardArray[0][1], currentBoardArray[0][2]};
+//        if (isWon(row0)) {
+//            return true;
+//        }
+//
+//        // check row 1
+//        String[] row1 = {currentBoardArray[1][0], currentBoardArray[1][1], currentBoardArray[1][2]};
+//        if (isWon(row1)) {
+//            return true;
+//        }
+//
+//        // check row 2
+//        String[] row2 = {currentBoardArray[2][0], currentBoardArray[2][1], currentBoardArray[2][2]};
+//        if (isWon(row2)) {
+//            return true;
+//        }
+//
+//        // check diagonal left to right
+//        String[] diagonalLtoR = {currentBoardArray[0][0], currentBoardArray[1][1],
+//                currentBoardArray[2][2]};
+//        if (isWon(diagonalLtoR)) {
+//            return true;
+//        }
+//        return true;
+//    }
+
+
+
+    public static Boolean isWon (String[] currentArray){
+        String firstChar = currentArray[0];
+
+        if (firstChar == "."){
+            return false;
+        } else if (firstChar == "X" || firstChar == "0"){
+            for (int index = 0; index < currentArray.length; index ++) {
+                if (firstChar != currentArray[index]){
+                    return false;
+                }
+            }
+
+        } return true;
+    }
 
 
     private static Player choosePlayer(int playedGames) {
