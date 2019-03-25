@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class TicTacToe {
-    public static void main (String[] args){
+    public static void main(String[] args) {
 
 //    Welcome message
         System.out.println("Welcome to Tic Tac Toe!");
@@ -12,32 +12,23 @@ public class TicTacToe {
         Board gameBoard = new Board();
         gameBoard.printBoard();
 
+//    Start games at zero in order to interchange the player
         int playedGames = 0;
 
-        // game loop start
-        Player currentPlayer = choosePlayer(playedGames);
+        // Game loop start
+        Player currentPlayer = Player.choosePlayer(playedGames);
         Scanner userInput = new Scanner(System.in);
 
         while (playedGames < 10) {
 
-            //give game instructions
-            //readUserInput
-            //check for q - to exit game
-            // check that its a valid coordinate (i.e. not a name, or outside the numbers avail)
-            //check if valid coordinates are "."
-            // add to the board if "."
-            //send success message OR send try again message
-            //display updated board OR readUserInput again
-            //increase played games
+            // Give instructions
+            System.out.println(Player.choosePlayer(playedGames).getName() + " enter a coordinate " +
+                    "x,y to" + " " + "place your " + Player.choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " + "up:");
 
-
-            // give instructions
-            System.out.println(choosePlayer(playedGames).getName() + " enter a coordinate x,y to" +  " " + "place your " + choosePlayer(playedGames).getPlayerPiece() + " or enter 'q' to give " + "up:");
-
-            // read user input
+            // Read user input
             String readUserInput = userInput.nextLine();
 
-            if ( readUserInput.equals("q")) {
+            if (readUserInput.equals("q")) {
                 System.exit(0);
                 userInput.close();
             }
@@ -49,23 +40,23 @@ public class TicTacToe {
             String[][] currentArray = gameBoard.getArray();
             // check if user coordinates on board are empty
 
-             if (currentArray[firstCoordinate][secondCoordinate] == "." ) {
-                 //play the move
-                 currentArray[firstCoordinate][secondCoordinate] =
-                         choosePlayer(playedGames).getPlayerPiece();
+            if (currentArray[firstCoordinate][secondCoordinate] == ".") {
+                //play the move if the spot has a .
+                currentArray[firstCoordinate][secondCoordinate] =
+                        Player.choosePlayer(playedGames).getPlayerPiece();
 
-                 System.out.println("Move accepted, here's the current board: ");
+                System.out.println("Move accepted, here's the current board: ");
 
-                 gameBoard.printBoard();
+                gameBoard.printBoard();
 
-                 String currentPlayerToken = choosePlayer(playedGames).getPlayerPiece();
+                String currentPlayerToken = Player.choosePlayer(playedGames).getPlayerPiece();
 
-                 if (winCheck(currentArray)){
-                     System.out.println("Move accepted, well done you've won the game! ");
-                 }
+                if (winCheck(currentArray)) {
+                    System.out.println("Move accepted, well done you've won the game! ");
+                }
 
-                 // increase playedGames
-                 playedGames++;
+                // increase playedGames
+                playedGames++;
 
 
 //                 here is checking lines to see if there is a winning game
@@ -82,41 +73,27 @@ public class TicTacToe {
 //                 }
 
 
-
 //                    this is if there is not a vacant spot for the piece
-            } else if (currentArray[firstCoordinate][secondCoordinate] == "X"){
+            } else if (currentArray[firstCoordinate][secondCoordinate] == "X") {
                 System.out.print("Oh no, a piece is already at this place! Try again...");
 
 
-            } else if (currentArray[firstCoordinate][secondCoordinate] == "0"){
+            } else if (currentArray[firstCoordinate][secondCoordinate] == "0") {
                 System.out.print("Oh no, a piece is already at this place! Try again...");
             }
-
-
         }
-
-//        check for a win
-
-
-
-
-
-
-        // game loop end
-
     }
 
 
-
     public static Boolean winCheck(String[][] currentBoardArray) {
-        for (int indexOuter = 0; indexOuter < currentBoardArray.length; indexOuter++){
-                 if (isWon(currentBoardArray[indexOuter])) {
-                     return true;
-                 }
+        for (int indexOuter = 0; indexOuter < currentBoardArray.length; indexOuter++) {
+            if (isWon(currentBoardArray[indexOuter])) {
+                return true;
+            }
 
-            } return false;
         }
-
+        return false;
+    }
 
 
 //        //check row 0
@@ -147,31 +124,19 @@ public class TicTacToe {
 //    }
 
 
-
-    public static Boolean isWon (String[] currentArray){
+    public static Boolean isWon(String[] currentArray) {
         String firstChar = currentArray[0];
 
-        if (firstChar == "."){
+        if (firstChar == ".") {
             return false;
-        } else if (firstChar == "X" || firstChar == "0"){
-            for (int index = 0; index < currentArray.length; index ++) {
-                if (firstChar != currentArray[index]){
+        } else if (firstChar == "X" || firstChar == "0") {
+            for (int index = 0; index < currentArray.length; index++) {
+                if (firstChar != currentArray[index]) {
                     return false;
                 }
             }
 
-        } return true;
-    }
-
-
-    private static Player choosePlayer(int playedGames) {
-        Player currentPlayer;
-
-        if(playedGames % 2 == 0){
-            currentPlayer = new Player("Player 1", "X");
-        }else{
-            currentPlayer = new Player("Player 2", "0");
         }
-        return currentPlayer;
+        return true;
     }
 }
