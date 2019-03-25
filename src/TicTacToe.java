@@ -53,6 +53,7 @@ public class TicTacToe {
 
                 if (winCheck(currentArray)) {
                     System.out.println("Move accepted, well done you've won the game! ");
+                    System.exit(0);
                 }
 
                 // increase playedGames
@@ -135,7 +136,6 @@ public class TicTacToe {
                     return false;
                 }
             }
-
         }
         return true;
     }
