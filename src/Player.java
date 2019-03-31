@@ -18,16 +18,7 @@ public class Player {
 
 
 
-    public static Player choosePlayer(int playedGames) {
-        Player currentPlayer;
 
-        if (playedGames % 2 == 0) {
-            currentPlayer = new Player("Player 1", "X");
-        } else {
-            currentPlayer = new Player("Player 2", "0");
-        }
-        return currentPlayer;
-    }
 
 
 

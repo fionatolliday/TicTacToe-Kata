@@ -3,7 +3,12 @@ import java.util.Arrays;
 public class Board {
 
     private String[][] board;
+
     public String[][] getArray() {
+        return new String[3][3];
+    }
+
+    public String[][] getBoard() {
         return board;
     }
 
